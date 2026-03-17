@@ -1,14 +1,32 @@
-package com.Msanchez.SistemaTickets.ML;
+package com.Msanchez.SistemaTickets.JPA;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+
+@Entity
 public class Producto {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "idproducto")
     private int IdProducto;
+
+    @Column(name = "nombre")
     private String Nombre;
+
+    @Column(name = "preciounitario")
     private double PrecioUnitario;
+
+    @Column(name = "descripcion")
     private String Descripcion;
 
+    @OneToMany(mappedBy = "Producto")
     public List<Detalleticket> Detalleticket = new ArrayList<>();
 
     public int getIdProducto() {
