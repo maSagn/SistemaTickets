@@ -4,9 +4,12 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -34,7 +37,8 @@ public class Ticketcompra {
     @Column(name = "estatus")
     private String Estatus;
 
-    @OneToMany(mappedBy = "Ticketcompra", cascade = CascadeType.ALL)
+    @JsonManagedReference
+    @OneToMany(mappedBy = "Ticketcompra", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     public List<Detalleticket> Detalleticket = new ArrayList<>();
 
     @OneToMany(mappedBy = "Ticketcompra", cascade = CascadeType.ALL)

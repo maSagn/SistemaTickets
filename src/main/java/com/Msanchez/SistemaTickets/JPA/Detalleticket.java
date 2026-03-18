@@ -1,7 +1,11 @@
 package com.Msanchez.SistemaTickets.JPA;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -24,10 +28,12 @@ public class Detalleticket {
     @Column(name = "totallinea")
     private double TotalLinea;
 
-    @ManyToOne
+    @JsonBackReference
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "idticket")
     public Ticketcompra Ticketcompra;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "idproducto")
     public Producto Producto;
