@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.CascadeType;
@@ -37,11 +38,11 @@ public class Ticketcompra {
     @Column(name = "estatus")
     private String Estatus;
 
-    @JsonManagedReference
+    @JsonIgnore
     @OneToMany(mappedBy = "Ticketcompra", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     public List<Detalleticket> Detalleticket = new ArrayList<>();
 
-    @OneToMany(mappedBy = "Ticketcompra", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "Ticketcompra", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     public List<Pagosticket> Pagosticket = new ArrayList<>();
 
     public int getIdTicket() {

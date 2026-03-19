@@ -28,13 +28,12 @@ public class Detalleticket {
     @Column(name = "totallinea")
     private double TotalLinea;
 
-    @JsonBackReference
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "idticket")
     public Ticketcompra Ticketcompra;
 
     @JsonIgnore
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "idproducto")
     public Producto Producto;
 

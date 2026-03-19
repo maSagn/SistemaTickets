@@ -42,7 +42,7 @@ public class ServiceDetalleTicket {
         return result;
     }
 
-    public Result Add(@RequestBody Ticketcompra ticketcompra) {
+    public Result Add(Ticketcompra ticketcompra) {
         Result result = new Result();
 
         try {
