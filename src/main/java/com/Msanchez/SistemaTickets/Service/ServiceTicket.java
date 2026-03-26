@@ -1,11 +1,14 @@
 package com.Msanchez.SistemaTickets.Service;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.Msanchez.SistemaTickets.DTO.TicketDTO;
 import com.Msanchez.SistemaTickets.JPA.Result;
 import com.Msanchez.SistemaTickets.JPA.Ticketcompra;
 import com.Msanchez.SistemaTickets.Repository.IRepositoryTicketcompra;
@@ -21,9 +24,24 @@ public class ServiceTicket {
 
         try {
             List<Ticketcompra> ticketscompras = iRepositoryTicketcompra.findAll();
-            result.object = ticketscompras;
+
+            List<TicketDTO> listaDTO = new ArrayList<>();
+
+            for (Ticketcompra t : ticketscompras) {
+                TicketDTO dto = new TicketDTO();
+                dto.setIdTicket(t.getIdTicket());
+                dto.setFolio(t.getFolio());
+                dto.setTotal(t.getTotal());
+                dto.setFechaCreacion(t.getFechaCreacion());
+                dto.setFechaPago(t.getFechaPago());
+                dto.setEstatus(t.getEstatus());
+
+                listaDTO.add(dto);
+            }
+
+            result.object = listaDTO;
             result.correct = true;
-            
+
         } catch (Exception ex) {
             result.correct = false;
             result.errorMessage = ex.getLocalizedMessage();
@@ -38,12 +56,12 @@ public class ServiceTicket {
 
         try {
             Optional<Ticketcompra> ticketcompra = iRepositoryTicketcompra.findById(IdTicket);
-            
+
             if (ticketcompra.isPresent()) {
                 result.object = ticketcompra;
                 result.correct = true;
             }
-            
+
         } catch (Exception ex) {
             result.correct = false;
             result.errorMessage = ex.getLocalizedMessage();
@@ -60,7 +78,7 @@ public class ServiceTicket {
             Ticketcompra savedTicketcompra = iRepositoryTicketcompra.save(ticketcompra);
             result.object = savedTicketcompra;
             result.correct = true;
-            
+
         } catch (Exception ex) {
             result.correct = false;
             result.errorMessage = ex.getLocalizedMessage();
@@ -89,7 +107,33 @@ public class ServiceTicket {
                 result.object = updatedTicket;
                 result.correct = true;
             }
-            
+
+        } catch (Exception ex) {
+            result.correct = false;
+            result.errorMessage = ex.getLocalizedMessage();
+            result.ex = ex;
+        }
+
+        return result;
+    }
+
+    public Result UpdateEstatus(Ticketcompra ticketcompra, int IdTicket) {
+        Result result = new Result();
+
+        try {
+            Optional<Ticketcompra> ticketFind = iRepositoryTicketcompra.findById(IdTicket);
+
+            if (ticketFind.isPresent()) {
+                Ticketcompra ticketExistente = ticketFind.get();
+
+                ticketExistente.setEstatus(ticketcompra.getEstatus());
+                ticketExistente.setFechaPago(new Date());
+
+                Ticketcompra updatedTicket = iRepositoryTicketcompra.save(ticketExistente);
+                //result.object = updatedTicket;
+                result.correct = true;
+            }
+
         } catch (Exception ex) {
             result.correct = false;
             result.errorMessage = ex.getLocalizedMessage();
@@ -109,7 +153,7 @@ public class ServiceTicket {
                 iRepositoryTicketcompra.deleteById(IdTicket);
                 result.correct = true;
             }
-            
+
         } catch (Exception ex) {
             result.correct = false;
             result.errorMessage = ex.getLocalizedMessage();

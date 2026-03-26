@@ -1,5 +1,6 @@
 package com.Msanchez.SistemaTickets.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,7 +23,20 @@ public class ServiceProducto {
 
         try {
             List<Producto> productos = iRepositoryProducto.findAll();
-            result.object = productos;
+
+            List<ProductoDTO> listaDTO = new ArrayList<>();
+
+            for (Producto p : productos) {
+                ProductoDTO dto = new ProductoDTO();
+                dto.setIdProducto(p.getIdProducto());
+                dto.setNombre(p.getNombre());
+                dto.setPrecioUnitario(p.getPrecioUnitario());
+                dto.setDescripcion(p.getDescripcion());
+
+                listaDTO.add(dto);
+            }
+
+            result.object = listaDTO;
             result.correct = true;
 
         } catch (Exception ex) {
@@ -131,7 +145,7 @@ public class ServiceProducto {
                 iRepositoryProducto.deleteById(IdProducto);
                 result.correct = true;
             }
-            
+
         } catch (Exception ex) {
             result.correct = false;
             result.errorMessage = ex.getLocalizedMessage();

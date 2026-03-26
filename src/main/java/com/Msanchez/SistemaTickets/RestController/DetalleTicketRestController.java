@@ -28,6 +28,12 @@ public class DetalleTicketRestController {
         return ResponseEntity.ok(result);
     }
 
+    @GetMapping("/detalleTickets/{IdTicket}")
+    public ResponseEntity GetDetallesByTicket(@PathVariable int IdTicket) {
+        Result result = serviceDetalleTicket.GetDetalleByTicket(IdTicket);
+        return ResponseEntity.ok(result);
+    }
+
     @PostMapping
     public ResponseEntity Add(@RequestBody Ticketcompra ticketcompra) {
         Result result = serviceDetalleTicket.Add(ticketcompra);
@@ -43,6 +49,12 @@ public class DetalleTicketRestController {
     @DeleteMapping("/{IdDetalle}")
     public ResponseEntity Delete(@PathVariable int IdDetalle) {
         Result result = serviceDetalleTicket.Delete(IdDetalle);
+        return ResponseEntity.ok(result);
+    }
+
+    @DeleteMapping("/eliminarDetalleTicket/{IdTicket}")
+    public ResponseEntity DeleteDetallesByTicket(@PathVariable int IdTicket) {
+        Result result = serviceDetalleTicket.DeleteDetallesByTicket(IdTicket);
         return ResponseEntity.ok(result);
     }
 }

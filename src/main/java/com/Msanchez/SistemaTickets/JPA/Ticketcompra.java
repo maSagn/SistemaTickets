@@ -37,8 +37,7 @@ public class Ticketcompra {
 
     @Column(name = "estatus")
     private String Estatus;
-
-    @JsonIgnore
+    
     @OneToMany(mappedBy = "Ticketcompra", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     public List<Detalleticket> Detalleticket = new ArrayList<>();
 

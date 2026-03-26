@@ -1,10 +1,14 @@
 package com.Msanchez.SistemaTickets.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.Msanchez.SistemaTickets.DTO.PagosticketDTO;
+import com.Msanchez.SistemaTickets.DTO.TicketDTO;
 import com.Msanchez.SistemaTickets.JPA.Pagosticket;
 import com.Msanchez.SistemaTickets.JPA.Result;
 import com.Msanchez.SistemaTickets.JPA.Ticketcompra;
@@ -17,8 +21,10 @@ public class ServicePagosTicket {
     @Autowired
     private IRepositoryPagosticket iRepositoryPagosticket;
 
-    @Autowired IRepositoryTicketcompra iRepositoryTicketcompra;
+    @Autowired
+    private IRepositoryTicketcompra iRepositoryTicketcompra;
 
+    // Uno solo
     public Result GetById(int IdPago) {
         Result result = new Result();
 
@@ -30,6 +36,52 @@ public class ServicePagosTicket {
                 result.correct = true;
             }
 
+        } catch (Exception ex) {
+            result.correct = false;
+            result.errorMessage = ex.getLocalizedMessage();
+            result.ex = ex;
+        }
+
+        return result;
+    }
+
+    // Todos los pagos por ticket
+    public Result GetPagosByTicket(int IdTicket) {
+        Result result = new Result();
+
+        try {
+            Optional<Ticketcompra> ticket = iRepositoryTicketcompra.findById(IdTicket);
+
+            if (ticket.isPresent()) {
+                List<Pagosticket> pagos = iRepositoryPagosticket.findPagosByTicket(IdTicket);
+
+                List<PagosticketDTO> pagosDTO = new ArrayList<>();
+
+                for (Pagosticket p :  pagos) {
+                    PagosticketDTO dto = new PagosticketDTO();
+                    dto.setNumeroPago(p.getNumeroPago());
+                    dto.setFolio(p.getFolio());
+                    dto.setMonto(p.getMonto());
+                    dto.setFechaCreacion(p.getFechaCreacion());
+
+                    // Mapear Ticket a TicketDTO
+                    TicketDTO ticketDTO = new TicketDTO();
+                    ticketDTO.setIdTicket(p.getTicketcompra().getIdTicket());
+                    ticketDTO.setFolio(p.getTicketcompra().getFolio());
+                    ticketDTO.setFechaCreacion(p.getTicketcompra().getFechaCreacion());
+                    ticketDTO.setFechaPago(p.getTicketcompra().getFechaPago());
+                    ticketDTO.setTotal(p.getTicketcompra().getTotal());
+                    ticketDTO.setEstatus(p.Ticketcompra.getEstatus());
+
+                    dto.setTicketDTO(ticketDTO);
+
+                    pagosDTO.add(dto);
+                }
+                
+                result.object = pagosDTO;
+                result.correct = true;
+            }
+            
         } catch (Exception ex) {
             result.correct = false;
             result.errorMessage = ex.getLocalizedMessage();

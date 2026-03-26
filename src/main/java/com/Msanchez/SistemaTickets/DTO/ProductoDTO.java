@@ -1,10 +1,17 @@
 package com.Msanchez.SistemaTickets.DTO;
 
 public class ProductoDTO {
+    private int IdProducto;
     private String Nombre;
     private double PrecioUnitario;
     private String Descripcion;
 
+    public int getIdProducto() {
+        return IdProducto;
+    }
+    public void setIdProducto(int idProducto) {
+        IdProducto = idProducto;
+    }
     public String getNombre() {
         return Nombre;
     }

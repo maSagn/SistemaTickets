@@ -27,12 +27,11 @@ public class Detalleticket {
 
     @Column(name = "totallinea")
     private double TotalLinea;
-
+    
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "idticket")
     public Ticketcompra Ticketcompra;
 
-    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "idproducto")
     public Producto Producto;

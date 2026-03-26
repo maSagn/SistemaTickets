@@ -46,6 +46,12 @@ public class TicketRestController {
         return ResponseEntity.ok(result);
     }
 
+    @PatchMapping("/ActualizarEstatus/{IdTicket}")
+    public ResponseEntity UpdateEstatus(@RequestBody Ticketcompra ticketcompra, @PathVariable int IdTicket) {
+        Result result = serviceTicket.UpdateEstatus(ticketcompra, IdTicket);
+        return ResponseEntity.ok(result);
+    }
+
     @DeleteMapping("/{IdTicket}")
     public ResponseEntity Delete(@PathVariable int IdTicket) {
         Result result = serviceTicket.Delete(IdTicket);

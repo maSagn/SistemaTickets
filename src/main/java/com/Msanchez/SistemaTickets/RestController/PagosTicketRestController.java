@@ -28,6 +28,12 @@ public class PagosTicketRestController {
         return ResponseEntity.ok(result);
     }
 
+    @GetMapping("/pagos/{IdTicket}")
+    public ResponseEntity GetPagosByTicket(@PathVariable int IdTicket) {
+        Result result = servicePagosTicket.GetPagosByTicket(IdTicket);
+        return ResponseEntity.ok(result);
+    }
+
     @PostMapping
     public ResponseEntity Add(@RequestBody Ticketcompra ticketcompra) {
         Result result = servicePagosTicket.Add(ticketcompra);
