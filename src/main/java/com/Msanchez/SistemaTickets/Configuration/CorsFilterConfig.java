@@ -16,7 +16,7 @@ public class CorsFilterConfig {
 
         corsConfig.addAllowedOrigin("*");
 
-         corsConfig.addAllowedHeader("*");
+        corsConfig.addAllowedHeader("*");
 
         corsConfig.addAllowedMethod("*");
 
