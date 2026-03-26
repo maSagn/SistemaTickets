@@ -154,6 +154,7 @@ public class ServicePagosTicket {
         return result;
     }
 
+    // Uno solo
     public Result Delete(int IdPago) {
         Result result = new Result();
 
@@ -165,6 +166,26 @@ public class ServicePagosTicket {
                 result.correct = true;
             }
 
+        } catch (Exception ex) {
+            result.correct = false;
+            result.errorMessage = ex.getLocalizedMessage();
+            result.ex = ex;
+        }
+
+        return result;
+    }
+
+    public Result DeletePagosByTicket(int IdTicket) {
+        Result result = new Result();
+
+        try {
+            Optional<Ticketcompra> ticket = iRepositoryTicketcompra.findById(IdTicket);
+
+            if (ticket.isPresent()) {
+                iRepositoryPagosticket.deletePagosByTicket(IdTicket);
+                result.correct = true;
+            }
+            
         } catch (Exception ex) {
             result.correct = false;
             result.errorMessage = ex.getLocalizedMessage();

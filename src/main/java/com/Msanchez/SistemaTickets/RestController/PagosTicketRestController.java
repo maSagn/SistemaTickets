@@ -52,5 +52,9 @@ public class PagosTicketRestController {
         return ResponseEntity.ok(result);
     }
 
-
+    @DeleteMapping("/eliminarPagosTicket/{IdTicket}")
+    public ResponseEntity DeletePagosByTicket(@PathVariable int IdTicket) {
+        Result result = servicePagosTicket.DeletePagosByTicket(IdTicket);
+        return ResponseEntity.ok(result);
+    }
 }
