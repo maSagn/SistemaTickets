@@ -21,4 +21,8 @@ public interface IRepositoryDetalleticket extends JpaRepository<Detalleticket, I
     @Query("DELETE FROM Detalleticket d WHERE d.Ticketcompra.IdTicket = :idTicket")
     int deleteDetalleByTicket(@Param("idTicket") int idTicket);
 
+    //Contar cuantos registros hay de determinado producto
+    @Query("SELECT COUNT(d) FROM Detalleticket d WHERE d.Producto.IdProducto = :idProducto")
+    int countByProductoId(@Param("idProducto") int idProducto);
+
 }

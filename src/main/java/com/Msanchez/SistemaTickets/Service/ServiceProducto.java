@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.Msanchez.SistemaTickets.DTO.ProductoDTO;
 import com.Msanchez.SistemaTickets.JPA.Producto;
 import com.Msanchez.SistemaTickets.JPA.Result;
+import com.Msanchez.SistemaTickets.Repository.IRepositoryDetalleticket;
 import com.Msanchez.SistemaTickets.Repository.IRepositoryProducto;
 
 @Service
@@ -17,6 +18,9 @@ public class ServiceProducto {
 
     @Autowired
     private IRepositoryProducto iRepositoryProducto;
+
+    @Autowired
+    private IRepositoryDetalleticket iRepositoryDetalleticket;
 
     public Result GetAll() {
         Result result = new Result();
@@ -142,8 +146,15 @@ public class ServiceProducto {
             Optional<Producto> productoFind = iRepositoryProducto.findById(IdProducto);
 
             if (productoFind.isPresent()) {
-                iRepositoryProducto.deleteById(IdProducto);
-                result.correct = true;
+                int numeroProductoByDetalle = iRepositoryDetalleticket.countByProductoId(IdProducto);
+
+                if (numeroProductoByDetalle == 0) {
+                    iRepositoryProducto.deleteById(IdProducto);
+                    result.correct = true;
+                } else {
+                    result.correct = false;
+                    result.errorMessage = "No se puede eliminar el producto porque está asignado en algun ticket.";
+                }
             }
 
         } catch (Exception ex) {

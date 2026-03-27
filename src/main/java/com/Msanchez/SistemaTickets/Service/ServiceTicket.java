@@ -9,8 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.Msanchez.SistemaTickets.DTO.TicketDTO;
+import com.Msanchez.SistemaTickets.DTO.UsuarioDTO;
 import com.Msanchez.SistemaTickets.JPA.Result;
 import com.Msanchez.SistemaTickets.JPA.Ticketcompra;
+import com.Msanchez.SistemaTickets.JPA.Usuario;
 import com.Msanchez.SistemaTickets.Repository.IRepositoryTicketcompra;
 
 @Service
@@ -23,7 +25,7 @@ public class ServiceTicket {
         Result result = new Result();
 
         try {
-            List<Ticketcompra> ticketscompras = iRepositoryTicketcompra.findAll();
+            List<Ticketcompra> ticketscompras = iRepositoryTicketcompra.findAllOrderByDesc();
 
             List<TicketDTO> listaDTO = new ArrayList<>();
 
@@ -35,6 +37,11 @@ public class ServiceTicket {
                 dto.setFechaCreacion(t.getFechaCreacion());
                 dto.setFechaPago(t.getFechaPago());
                 dto.setEstatus(t.getEstatus());
+
+                UsuarioDTO userDTO = new UsuarioDTO();
+                userDTO.setIdUsuario(t.getUsuario().getIdUsuario());
+
+                dto.setUsuarioDTO(userDTO);
 
                 listaDTO.add(dto);
             }

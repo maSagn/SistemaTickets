@@ -10,6 +10,7 @@ public class TicketDTO {
     private Date FechaPago;
     private double Total;
     private String Estatus;
+    private UsuarioDTO usuarioDTO;
     private List<DetalleticketDTO> Detalleticket;
     
     public int getIdTicket() {
@@ -53,5 +54,11 @@ public class TicketDTO {
     }
     public void setDetalleticket(List<DetalleticketDTO> detalleticket) {
         Detalleticket = detalleticket;
+    }
+    public UsuarioDTO getUsuarioDTO() {
+        return usuarioDTO;
+    }
+    public void setUsuarioDTO(UsuarioDTO usuarioDTO) {
+        this.usuarioDTO = usuarioDTO;
     }
 }

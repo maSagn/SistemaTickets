@@ -14,6 +14,8 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 
 @Entity
@@ -43,6 +45,10 @@ public class Ticketcompra {
 
     @OneToMany(mappedBy = "Ticketcompra", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     public List<Pagosticket> Pagosticket = new ArrayList<>();
+
+    @ManyToOne
+    @JoinColumn(name = "idusuario", nullable = true)
+    public Usuario Usuario;
 
     public int getIdTicket() {
         return IdTicket;
@@ -91,5 +97,11 @@ public class Ticketcompra {
     }
     public void setPagosticket(List<Pagosticket> pagosticket) {
         Pagosticket = pagosticket;
+    }
+    public Usuario getUsuario() {
+        return Usuario;
+    }
+    public void setUsuario(Usuario usuario) {
+        Usuario = usuario;
     }
 }
