@@ -24,7 +24,13 @@ public class TicketRestController {
 
     @GetMapping
     public ResponseEntity GetAll() {
-        Result result = serviceTicket.GetAll();
+        Result result = serviceTicket.GetAll(null);
+        return ResponseEntity.ok(result);
+    }
+
+    @PostMapping("/filtrar")
+    public ResponseEntity GetAll(@RequestBody Ticketcompra ticket) {
+        Result result = serviceTicket.GetAll(ticket);
         return ResponseEntity.ok(result);
     }
 
