@@ -36,6 +36,7 @@ public class ServiceProducto {
                 dto.setNombre(p.getNombre());
                 dto.setPrecioUnitario(p.getPrecioUnitario());
                 dto.setDescripcion(p.getDescripcion());
+                dto.setImagen(p.getImagen());
 
                 listaDTO.add(dto);
             }
@@ -67,6 +68,7 @@ public class ServiceProducto {
                 productoDTO.setNombre(p.getNombre());
                 productoDTO.setPrecioUnitario(p.getPrecioUnitario());
                 productoDTO.setDescripcion(p.getDescripcion());
+                productoDTO.setImagen(p.getImagen());
 
                 result.object = productoDTO;
                 result.correct = true;
@@ -117,6 +119,10 @@ public class ServiceProducto {
                 productoExistente.setNombre(producto.getNombre());
                 productoExistente.setPrecioUnitario(producto.getPrecioUnitario());
                 productoExistente.setDescripcion(producto.getDescripcion());
+
+                if (producto.getImagen() != null) {
+                    productoExistente.setImagen(producto.getImagen());
+                }
 
                 Producto updatedProducto = iRepositoryProducto.save(productoExistente);
 

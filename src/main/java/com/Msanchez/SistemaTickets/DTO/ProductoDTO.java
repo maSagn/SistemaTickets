@@ -5,6 +5,7 @@ public class ProductoDTO {
     private String Nombre;
     private double PrecioUnitario;
     private String Descripcion;
+    private String Imagen;
 
     public int getIdProducto() {
         return IdProducto;
@@ -29,5 +30,11 @@ public class ProductoDTO {
     }
     public void setDescripcion(String descripcion) {
         Descripcion = descripcion;
+    }
+    public String getImagen() {
+        return Imagen;
+    }
+    public void setImagen(String imagen) {
+        Imagen = imagen;
     }
 }

@@ -8,6 +8,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Lob;
 import jakarta.persistence.OneToMany;
 
 @Entity
@@ -25,6 +26,10 @@ public class Producto {
 
     @Column(name = "descripcion")
     private String Descripcion;
+
+    @Lob
+    @Column(name = "imagen")
+    private String Imagen;
 
     @OneToMany(mappedBy = "Producto")
     public List<Detalleticket> Detalleticket = new ArrayList<>();
@@ -58,5 +63,11 @@ public class Producto {
     }
     public void setDetalleticket(List<Detalleticket> detalleticket) {
         Detalleticket = detalleticket;
+    }
+    public String getImagen() {
+        return Imagen;
+    }
+    public void setImagen(String imagen) {
+        Imagen = imagen;
     }
 }

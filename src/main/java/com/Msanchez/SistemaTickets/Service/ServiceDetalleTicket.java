@@ -70,6 +70,7 @@ public class ServiceDetalleTicket {
                     prodDTO.setNombre(d.getProducto().getNombre());
                     prodDTO.setPrecioUnitario(d.getProducto().getPrecioUnitario());
                     prodDTO.setDescripcion(d.getProducto().getDescripcion());
+                    prodDTO.setImagen(d.getProducto().getImagen());
 
                     dto.setProductoDTO(prodDTO);
 
